@@ -1,3 +1,31 @@
+const googleSheetsApiKey = 'AIzaSyDf_YWXZu4HmiJXG9QteBdXW04rYYoDCVI'
+const googleSheetsSpreadsheetId = '1ldywpMMJACbELnx8xGeBnu-fhcqu7VZmLXSGRa3ZZYM'
+
+function addExpenseToGoogleSheets(expense) {
+    const url = `https://script.google.com/macros/s/AKfycbwvzSNVULv2TsX1BZPYtjW_-D4zlvd-aK-nUGR1gLuBtVuuJKBHx1JbLU7RGWvbZ1sA/exec`
+
+    const data = {
+        values: [
+            [
+                expense.type,
+                expense.method,
+                expense.date,
+                expense.value,
+                expense.installments,
+                expense.closingDate
+            ]
+        ]
+    }
+
+    return fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const expenseForm = document.getElementById('expense-form')
     const cancelExpenseButton = document.getElementById('cancel-expense')
