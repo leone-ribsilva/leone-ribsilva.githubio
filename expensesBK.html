@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles.css" />
+        <!-- <script src="expenses.js" defer></script> -->
+        <title>Cadastrar Despesa</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Cadastrar Despesa</h1>
+            <form id="expense-form">
+                <label for="expense-type">Tipo de Despesa:</label>
+                <select id="expense-type" name="expense-type">
+                    <option value="saude">Saúde</option>
+                    <option value="educacao">Educação</option>
+                    <option value="vestuario">Vestuário</option>
+                    <option value="supermercado">Supermercado</option>
+                    <option value="outros">Outros</option>
+                </select>
+                <label for="payment-method">Forma de Pagamento:</label>
+                <select id="payment-method" name="payment-method">
+                    <option value="dinheiro">Dinheiro</option>
+                    <option value="pix">PIX</option>
+                    <option value="cartao-credito">Cartão de Crédito</option>
+                    <option value="cartao-debito">Cartão de Débito</option>
+                    <option value="boleto">Boleto</option>
+                    <option value="debito-automatico">Débito Automático</option>
+                </select>
+                <label for="purchase-date">Data da Compra:</label>
+                <input
+                    type="text"
+                    id="purchase-date"
+                    name="purchase-date"
+                    placeholder="DD/MM/AAAA"
+                />
+                <label for="amount">Valor:</label>
+                <input
+                    type="text"
+                    id="amount"
+                    name="amount"
+                    placeholder="R$0,00"
+                />
+                <div id="credit-card-fields">
+                    <label for="installments">Número de Parcelas:</label>
+                    <input
+                        type="number"
+                        id="installments"
+                        name="installments"
+                        placeholder="Digite o número de parcelas"
+                        min="1"
+                    />
+                    <label for="closing-date"
+                        >Data de Fechamento da Fatura:</label
+                    >
+                    <input
+                        type="text"
+                        id="closing-date"
+                        name="closing-date"
+                        placeholder="DD/MM/AAAA"
+                    />
+                </div>
+                <!-- <button type="submit">Salvar Despesa</button> -->
+                <button type="button" id="submit-expense">
+                    Salvar Despesa
+                </button>
+                <button type="button" id="cancel-expense">Cancelar</button>
+            </form>
+        </div>
+    </body>
+</html>
