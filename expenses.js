@@ -1,64 +1,38 @@
-const googleSheetsApiKey = 'AIzaSyDf_YWXZu4HmiJXG9QteBdXW04rYYoDCVI'
-const googleSheetsSpreadsheetId = '1ldywpMMJACbELnx8xGeBnu-fhcqu7VZmLXSGRa3ZZYM'
+document.addEventListener('DOMContentLoaded', function () {
+    const expenseForm = document.getElementById('expense-form')
+    const cancelExpenseButton = document.getElementById('cancel-expense')
+    const creditCardFields = document.getElementById('credit-card-fields')
+    const submitExpenseButton = document.getElementById('submit-expense')
 
-// Função para adicionar uma nova despesa à planilha
-function addExpenseToGoogleSheets(expense) {
-    const url = `https://script.google.com/macros/s/AKfycbwvzSNVULv2TsX1BZPYtjW_-D4zlvd-aK-nUGR1gLuBtVuuJKBHx1JbLU7RGWvbZ1sA/exec`
+    submitExpenseButton.addEventListener('click', async function () {
+        const expenseType = document.getElementById('expense-type').value
+        const paymentMethod = document.getElementById('payment-method').value
+        const purchaseDate = document.getElementById('purchase-date').value
+        const amount = parseFloat(
+            document.getElementById('amount').value.replace('R$', '')
+        )
+        const installments = document.getElementById('installments').value
+        const closingDate = document.getElementById('closing-date').value
 
-    const data = {
-        values: [
-            [
-                expense.type,
-                expense.method,
-                expense.date,
-                expense.value,
-                expense.installments,
-                expense.closingDate
-            ]
-        ]
-    }
+        const expense = {
+            type: expenseType,
+            method: paymentMethod,
+            date: purchaseDate,
+            value: amount,
+            installments: installments,
+            closingDate: closingDate,
+            month: getMonthFromDateString(purchaseDate)
+        }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const expenseForm = document.getElementById('expense-form')
-        const cancelExpenseButton = document.getElementById('cancel-expense')
-        const creditCardFields = document.getElementById('credit-card-fields')
-        const submitExpenseButton = document.getElementById('submit-expense')
-
-        submitExpenseButton.addEventListener('click', async function () {
-            const expenseType = document.getElementById('expense-type').value
-            const paymentMethod =
-                document.getElementById('payment-method').value
-            const purchaseDate = document.getElementById('purchase-date').value
-            const amount = parseFloat(
-                document.getElementById('amount').value.replace('R$', '')
-            )
-            const installments = document.getElementById('installments').value
-            const closingDate = document.getElementById('closing-date').value
-
-            const expense = {
-                type: expenseType,
-                method: paymentMethod,
-                date: purchaseDate,
-                value: amount,
-                installments: installments,
-                closingDate: closingDate,
-                month: getMonthFromDateString(purchaseDate)
-            }
-
-            try {
-                const response = await addExpenseToGoogleSheets(expense)
-                console.log(response)
-                alert('Despesa cadastrada com sucesso!')
-                expenseForm.reset()
-            } catch (error) {
-                console.error(error)
-                alert('Erro ao cadastrar despesa.')
-            }
-        })
-
-        addExpenseToGoogleSheets(expense)
-        alert('Despesa cadastrada com sucesso!')
-        expenseForm.reset()
+        try {
+            const response = await addExpenseToGoogleSheets(expense)
+            console.log(response)
+            alert('Despesa cadastrada com sucesso!')
+            expenseForm.reset()
+        } catch (error) {
+            console.error(error)
+            alert('Erro ao cadastrar despesa.')
+        }
     })
 
     cancelExpenseButton.addEventListener('click', function () {
@@ -78,15 +52,10 @@ function addExpenseToGoogleSheets(expense) {
         const [day, month, year] = dateString.split('/')
         return `${month}/${year}`
     }
-}
 
-// Função para carregar despesas da planilha
-//const url =
-//'https://script.google.com/macros/s/AKfycbzEAoUV40mJRg0i0zr_EPnTzOAffGq9yFgTwtw7WvPT8jTTMQ6aq8mycIljHhVhzWLo/exec' // Substitua pela URL que você copiou do Google Apps Script
-
-function loadExpensesFromGoogleSheets() {
+    // Restante do código para carregar despesas da planilha
     const url =
-        'https://script.google.com/macros/s/AKfycbwvzSNVULv2TsX1BZPYtjW_-D4zlvd-aK-nUGR1gLuBtVuuJKBHx1JbLU7RGWvbZ1sA/exec' // Substitua pela URL que você copiou do Google Apps Script
+        'https://script.google.com/macros/s/AKfycbwvzSNVULv2TsX1BZPYtjW_-D4zlvd-aK-nUGR1gLuBtVuuJKBHx1JbLU7RGWvbZ1sA/exec'
 
     fetch(url)
         .then(response => response.json())
@@ -94,7 +63,7 @@ function loadExpensesFromGoogleSheets() {
             if (data.status === 'success') {
                 const expenses = data.data
 
-                // Crie a tabela
+                // Crie a tabela e adicione as linhas das despesas
                 const table = document.createElement('table')
                 table.className = 'expense-table'
 
@@ -137,4 +106,4 @@ function loadExpensesFromGoogleSheets() {
         .catch(error => {
             console.error(error)
         })
-}
+})
