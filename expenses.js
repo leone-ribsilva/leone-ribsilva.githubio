@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Restante do código para carregar despesas da planilha
     const url =
-        'https://script.google.com/macros/s/AKfycbwvzSNVULv2TsX1BZPYtjW_-D4zlvd-aK-nUGR1gLuBtVuuJKBHx1JbLU7RGWvbZ1sA/exec'
+        'https://script.google.com/macros/s/AKfycbx7gEIzNnCUsbQxxT5YZD_g5cDwQjY1PmmXOgF0DBUizscbpQDv1x62ecgjsTL7ujba/exec'
 
     fetch(url)
         .then(response => response.json())
