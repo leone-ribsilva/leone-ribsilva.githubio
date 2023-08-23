@@ -1,4 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
 document.addEventListener('DOMContentLoaded', function () {
     const monthList = document.getElementById('month-list')
     const addExpenseButton = document.getElementById('add-expense')

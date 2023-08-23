@@ -1,10 +1,5 @@
-const googleSheetsApiKey = 'AIzaSyDf_YWXZu4HmiJXG9QteBdXW04rYYoDCVI'
-const googleSheetsSpreadsheetId = '1ldywpMMJACbELnx8xGeBnu-fhcqu7VZmLXSGRa3ZZYM'
-
-const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/' // Um exemplo de serviço de proxy CORS, você pode usar outro se preferir
-
 async function addExpenseToGoogleSheets(expense) {
-    const url = `${corsProxyUrl}https://script.google.com/macros/s/AKfycbwc8_mi1ZffQL5dYSt0dsj0L1455qy22QkvaOfs54stMEih6hrlm7EIAGJXMQJebN5R/exec`
+    const url = `https://script.google.com/macros/s/AKfycbwc8_mi1ZffQL5dYSt0dsj0L1455qy22QkvaOfs54stMEih6hrlm7EIAGJXMQJebN5R/exec`
 
     const data = {
         values: [
