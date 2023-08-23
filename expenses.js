@@ -4,7 +4,7 @@ const googleSheetsSpreadsheetId = '1ldywpMMJACbELnx8xGeBnu-fhcqu7VZmLXSGRa3ZZYM'
 const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/' // Um exemplo de serviço de proxy CORS, você pode usar outro se preferir
 
 async function addExpenseToGoogleSheets(expense) {
-    const url = `${corsProxyUrl}https://script.google.com/macros/s/AKfycbwvzSNVULv2TsX1BZPYtjW_-D4zlvd-aK-nUGR1gLuBtVuuJKBHx1JbLU7RGWvbZ1sA/exec`
+    const url = `${corsProxyUrl}https://script.google.com/macros/s/AKfycbwc8_mi1ZffQL5dYSt0dsj0L1455qy22QkvaOfs54stMEih6hrlm7EIAGJXMQJebN5R/exec`
 
     const data = {
         values: [
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Restante do código para carregar despesas da planilha
     const url =
-        'https://script.google.com/macros/s/AKfycbx7gEIzNnCUsbQxxT5YZD_g5cDwQjY1PmmXOgF0DBUizscbpQDv1x62ecgjsTL7ujba/exec'
+        'https://script.google.com/macros/s/AKfycbzmylTHNOaxhvf8GwzBDO6FIP6tfbNY-WwT-4jB9JJw4tJuqQbx3IMwU82SKRg9opkq/exec'
 
     fetch(url)
         .then(response => response.json())
