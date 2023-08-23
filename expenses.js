@@ -68,112 +68,118 @@ function addExpenseToGoogleSheets(expense) {
 //})
 
 // Função para carregar despesas da planilha
-function loadExpensesFromGoogleSheets() {
-    const url = `https://script.google.com/macros/s/AKfycbx7gEIzNnCUsbQxxT5YZD_g5cDwQjY1PmmXOgF0DBUizscbpQDv1x62ecgjsTL7ujba/exec`
+const url =
+    'https://script.google.com/macros/s/AKfycbzEAoUV40mJRg0i0zr_EPnTzOAffGq9yFgTwtw7WvPT8jTTMQ6aq8mycIljHhVhzWLo/exec' // Substitua pela URL que você copiou do Google Apps Script
 
-    // fetch(url)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         const rows = data.values || []
-    //         console.log('Despesas carregadas:', rows)
-    //     })
-    //     .catch(error => {
-    //         console.error('Erro ao carregar despesas:', error)
-    //     })
+fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            const expenses = data.data
+            // Exiba os dados no HTML como desejar
+            expenses
+                .forEach(expense => {
+                    // Criar elementos HTML e adicionar os dados
+                    // Seleciona o elemento HTML onde você deseja exibir a tabela
+                    const tableContainer =
+                        document.getElementById('table-container')
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            // Seleciona o elemento HTML onde você deseja exibir a tabela
-            const tableContainer = document.getElementById('table-container')
+                    // Cria a tabela
+                    const table = document.createElement('table')
+                    table.className = 'expense-table'
 
-            // Cria a tabela
-            const table = document.createElement('table')
-            table.className = 'expense-table'
+                    // Cria a primeira linha de cabeçalho da tabela
+                    const headerRow = document.createElement('tr')
+                    headerRow.innerHTML = `
+  <th>Tipo de Despesa</th>
+  <th>Forma de Pagamento</th>
+  <th>Data da Compra</th>
+  <th>Valor</th>
+  <th>Número de Parcelas</th>
+  <th>Data de Fechamento</th>
+`
+                    table.appendChild(headerRow)
 
-            // Cria a primeira linha de cabeçalho da tabela
-            const headerRow = document.createElement('tr')
-            headerRow.innerHTML = `
-      <th>Tipo de Despesa</th>
-      <th>Forma de Pagamento</th>
-      <th>Data da Compra</th>
-      <th>Valor</th>
-      <th>Número de Parcelas</th>
-      <th>Data de Fechamento</th>
-    `
-            table.appendChild(headerRow)
+                    // Adiciona as linhas das despesas
+                    data.forEach(expense => {
+                        const row = document.createElement('tr')
+                        row.innerHTML = `
+    <td>${expense.type}</td>
+    <td>${expense.method}</td>
+    <td>${expense.date}</td>
+    <td>${expense.value}</td>
+    <td>${expense.installments}</td>
+    <td>${expense.closingDate}</td>
+  `
+                        table.appendChild(row)
+                    })
 
-            // Adiciona as linhas das despesas
-            data.forEach(expense => {
-                const row = document.createElement('tr')
-                row.innerHTML = `
-        <td>${expense.type}</td>
-        <td>${expense.method}</td>
-        <td>${expense.date}</td>
-        <td>${expense.value}</td>
-        <td>${expense.installments}</td>
-        <td>${expense.closingDate}</td>
-      `
-                table.appendChild(row)
+                    // Adiciona a tabela ao container
+                    tableContainer.appendChild(table)
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+        }
+
+        ///////////////////////////////////////////////////////////////////////////
+        const expenses = []
+        document.addEventListener('DOMContentLoaded', function () {
+            const expenseForm = document.getElementById('expense-form')
+            const cancelExpenseButton =
+                document.getElementById('cancel-expense')
+            const creditCardFields =
+                document.getElementById('credit-card-fields')
+            const submitExpenseButton =
+                document.getElementById('submit-expense')
+
+            submitExpenseButton.addEventListener('click', function () {
+                const expenseType =
+                    document.getElementById('expense-type').value
+                const paymentMethod =
+                    document.getElementById('payment-method').value
+                const purchaseDate =
+                    document.getElementById('purchase-date').value
+                const amount = parseFloat(
+                    document.getElementById('amount').value.replace('R$', '')
+                )
+                const installments =
+                    document.getElementById('installments').value
+                const closingDate =
+                    document.getElementById('closing-date').value
+
+                const expense = {
+                    type: expenseType,
+                    method: paymentMethod,
+                    date: purchaseDate,
+                    value: amount,
+                    installments: installments,
+                    closingDate: closingDate,
+                    month: getMonthFromDateString(purchaseDate)
+                }
+
+                addExpenseToGoogleSheets(expense)
+                expenses.push(expense)
+                alert('Despesa cadastrada com sucesso!')
+                expenseForm.reset()
             })
 
-            // Adiciona a tabela ao container
-            tableContainer.appendChild(table)
+            cancelExpenseButton.addEventListener('click', function () {
+                window.location.href = 'index.html'
+            })
+
+            const paymentMethod = document.getElementById('payment-method')
+            paymentMethod.addEventListener('change', function () {
+                if (paymentMethod.value === 'cartao-credito') {
+                    creditCardFields.style.display = 'block'
+                } else {
+                    creditCardFields.style.display = 'none'
+                }
+            })
+
+            function getMonthFromDateString(dateString) {
+                const [day, month, year] = dateString.split('/')
+                return `${month}/${year}`
+            }
         })
-        .catch(error => {
-            console.error(error)
-        })
-}
-
-///////////////////////////////////////////////////////////////////////////
-const expenses = []
-document.addEventListener('DOMContentLoaded', function () {
-    const expenseForm = document.getElementById('expense-form')
-    const cancelExpenseButton = document.getElementById('cancel-expense')
-    const creditCardFields = document.getElementById('credit-card-fields')
-    const submitExpenseButton = document.getElementById('submit-expense')
-
-    submitExpenseButton.addEventListener('click', function () {
-        const expenseType = document.getElementById('expense-type').value
-        const paymentMethod = document.getElementById('payment-method').value
-        const purchaseDate = document.getElementById('purchase-date').value
-        const amount = parseFloat(
-            document.getElementById('amount').value.replace('R$', '')
-        )
-        const installments = document.getElementById('installments').value
-        const closingDate = document.getElementById('closing-date').value
-
-        const expense = {
-            type: expenseType,
-            method: paymentMethod,
-            date: purchaseDate,
-            value: amount,
-            installments: installments,
-            closingDate: closingDate,
-            month: getMonthFromDateString(purchaseDate)
-        }
-
-        addExpenseToGoogleSheets(expense)
-        expenses.push(expense)
-        alert('Despesa cadastrada com sucesso!')
-        expenseForm.reset()
     })
-
-    cancelExpenseButton.addEventListener('click', function () {
-        window.location.href = 'index.html'
-    })
-
-    const paymentMethod = document.getElementById('payment-method')
-    paymentMethod.addEventListener('change', function () {
-        if (paymentMethod.value === 'cartao-credito') {
-            creditCardFields.style.display = 'block'
-        } else {
-            creditCardFields.style.display = 'none'
-        }
-    })
-
-    function getMonthFromDateString(dateString) {
-        const [day, month, year] = dateString.split('/')
-        return `${month}/${year}`
-    }
-})
