@@ -1,8 +1,10 @@
 const googleSheetsApiKey = 'AIzaSyDf_YWXZu4HmiJXG9QteBdXW04rYYoDCVI'
 const googleSheetsSpreadsheetId = '1ldywpMMJACbELnx8xGeBnu-fhcqu7VZmLXSGRa3ZZYM'
 
-function addExpenseToGoogleSheets(expense) {
-    const url = `https://script.google.com/macros/s/AKfycbwvzSNVULv2TsX1BZPYtjW_-D4zlvd-aK-nUGR1gLuBtVuuJKBHx1JbLU7RGWvbZ1sA/exec`
+const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/' // Um exemplo de serviço de proxy CORS, você pode usar outro se preferir
+
+async function addExpenseToGoogleSheets(expense) {
+    const url = `${corsProxyUrl}https://script.google.com/macros/s/AKfycbwvzSNVULv2TsX1BZPYtjW_-D4zlvd-aK-nUGR1gLuBtVuuJKBHx1JbLU7RGWvbZ1sA/exec`
 
     const data = {
         values: [
@@ -17,13 +19,19 @@ function addExpenseToGoogleSheets(expense) {
         ]
     }
 
-    return fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+
+        return response
+    } catch (error) {
+        throw error
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
