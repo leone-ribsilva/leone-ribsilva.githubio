@@ -1,34 +1,3 @@
-async function addExpenseToGoogleSheets(expense) {
-    const url = `https://script.google.com/macros/s/AKfycbwc8_mi1ZffQL5dYSt0dsj0L1455qy22QkvaOfs54stMEih6hrlm7EIAGJXMQJebN5R/exec`
-
-    const data = {
-        values: [
-            [
-                expense.type,
-                expense.method,
-                expense.date,
-                expense.value,
-                expense.installments,
-                expense.closingDate
-            ]
-        ]
-    }
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-
-        return response
-    } catch (error) {
-        throw error
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function () {
     const expenseForm = document.getElementById('expense-form')
     const cancelExpenseButton = document.getElementById('cancel-expense')
@@ -84,6 +53,38 @@ document.addEventListener('DOMContentLoaded', function () {
         return `${month}/${year}`
     }
 })
+
+async function addExpenseToGoogleSheets(expense) {
+    const url = `https://script.google.com/macros/s/AKfycbwc8_mi1ZffQL5dYSt0dsj0L1455qy22QkvaOfs54stMEih6hrlm7EIAGJXMQJebN5R/exec`
+
+    const data = {
+        values: [
+            [
+                expense.type,
+                expense.method,
+                expense.date,
+                expense.value,
+                expense.installments,
+                expense.closingDate
+            ]
+        ]
+    }
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+
+        return response
+    } catch (error) {
+        throw error
+    }
+}
+
 // Restante do código para carregar despesas da planilha
 const url =
     'https://script.google.com/macros/s/AKfycbzmylTHNOaxhvf8GwzBDO6FIP6tfbNY-WwT-4jB9JJw4tJuqQbx3IMwU82SKRg9opkq/exec'
