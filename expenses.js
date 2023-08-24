@@ -108,8 +108,10 @@ document.addEventListener('DOMContentLoaded', function () {
         })
 })
 
+const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/' // Um exemplo de serviço de proxy CORS, você pode usar outro se preferir
+
 async function addExpenseToGoogleSheets(expense) {
-    const url = `https://script.google.com/macros/s/AKfycbwc8_mi1ZffQL5dYSt0dsj0L1455qy22QkvaOfs54stMEih6hrlm7EIAGJXMQJebN5R/exec`
+    const url = `${corsProxyUrl}https://script.google.com/macros/s/AKfycbwvzSNVULv2TsX1BZPYtjW_-D4zlvd-aK-nUGR1gLuBtVuuJKBHx1JbLU7RGWvbZ1sA/exec`
 
     const data = {
         values: [
