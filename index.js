@@ -53,47 +53,48 @@ document.addEventListener('DOMContentLoaded', function () {
         'Dezembro'
     ]
     months.forEach(createMonthItem)
-})
-// Função para atualizar a tabela de despesas por mês
-function updateExpensesByMonthTable() {
-    const expensesByMonthTable = document
-        .getElementById('expenses-by-month')
-        .getElementsByTagName('tbody')[0]
-    expensesByMonthTable.innerHTML = ''
 
-    const expensesByMonth = calculateExpensesByMonth(expenses)
+    // Função para atualizar a tabela de despesas por mês
+    function updateExpensesByMonthTable() {
+        const expensesByMonthTable = document
+            .getElementById('expenses-by-month')
+            .getElementsByTagName('tbody')[0]
+        expensesByMonthTable.innerHTML = ''
 
-    for (const [month, total] of Object.entries(expensesByMonth)) {
-        const row = expensesByMonthTable.insertRow()
-        const monthCell = row.insertCell(0)
-        const totalCell = row.insertCell(1)
-        monthCell.textContent = month
-        totalCell.textContent = formatCurrency(total)
-    }
-}
+        const expensesByMonth = calculateExpensesByMonth(expenses)
 
-// Função para calcular despesas por mês
-function calculateExpensesByMonth(expenses) {
-    const expensesByMonth = {}
-
-    for (const expense of expenses) {
-        if (expensesByMonth[expense.month]) {
-            expensesByMonth[expense.month] += expense.value
-        } else {
-            expensesByMonth[expense.month] = expense.value
+        for (const [month, total] of Object.entries(expensesByMonth)) {
+            const row = expensesByMonthTable.insertRow()
+            const monthCell = row.insertCell(0)
+            const totalCell = row.insertCell(1)
+            monthCell.textContent = month
+            totalCell.textContent = formatCurrency(total)
         }
     }
 
-    return expensesByMonth
-}
+    // Função para calcular despesas por mês
+    function calculateExpensesByMonth(expenses) {
+        const expensesByMonth = {}
 
-// Função para formatar valor como moeda
-function formatCurrency(value) {
-    return new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-    }).format(value)
-}
+        for (const expense of expenses) {
+            if (expensesByMonth[expense.month]) {
+                expensesByMonth[expense.month] += expense.value
+            } else {
+                expensesByMonth[expense.month] = expense.value
+            }
+        }
 
-// Chamar a função para atualizar a tabela inicialmente
-updateExpensesByMonthTable()
+        return expensesByMonth
+    }
+
+    // Função para formatar valor como moeda
+    function formatCurrency(value) {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(value)
+    }
+
+    // Chamar a função para atualizar a tabela inicialmente
+    updateExpensesByMonthTable()
+})
