@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,46 +10,53 @@
     <body>
         <div class="container">
             <h1>Cadastrar Despesa</h1>
-            <form id="expense-form">
+            <form
+                action="https://api.sheetmonkey.io/form/dqQyKb4XCqAF9PWapqeddQ"
+                method="post"
+            >
                 <label for="expense-type">Tipo de Despesa:</label>
-                <select id="expense-type" name="expense-type">
-                    <option value="saude">Saúde</option>
-                    <option value="educacao">Educação</option>
-                    <option value="vestuario">Vestuário</option>
-                    <option value="supermercado">Supermercado</option>
-                    <option value="outros">Outros</option>
+                <select id="expense-type" name="Tipo de despesa" required>
+                    <option value="Saúde">Saúde</option>
+                    <option value="Educação">Educação</option>
+                    <option value="Vestuário">Vestuário</option>
+                    <option value="Supermercado">Supermercado</option>
+                    <option value="Outros">Outros</option>
                 </select>
                 <label for="payment-method">Forma de Pagamento:</label>
-                <select id="payment-method" name="payment-method">
-                    <option value="dinheiro">Dinheiro</option>
-                    <option value="pix">PIX</option>
-                    <option value="cartao-credito">Cartão de Crédito</option>
-                    <option value="cartao-debito">Cartão de Débito</option>
-                    <option value="boleto">Boleto</option>
-                    <option value="debito-automatico">Débito Automático</option>
+                <select id="payment-method" name="Forma de pagamento" required>
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="PIX">PIX</option>
+                    <option value="Cartao-crédito">Cartão de Crédito</option>
+                    <option value="Cartao-Débito">Cartão de Débito</option>
+                    <option value="Boleto">Boleto</option>
+                    <option value="Débito-automático">Débito Automático</option>
                 </select>
                 <label for="purchase-date">Data da Compra:</label>
                 <input
                     type="text"
                     id="purchase-date"
-                    name="purchase-date"
+                    name="Data da compra"
                     placeholder="DD/MM/AAAA"
+                    required
                 />
                 <label for="amount">Valor:</label>
                 <input
                     type="text"
                     id="amount"
-                    name="amount"
+                    name="Valor da compra"
                     placeholder="R$0,00"
+                    required
                 />
                 <div id="credit-card-fields">
                     <label for="installments">Número de Parcelas:</label>
                     <input
                         type="number"
                         id="installments"
-                        name="installments"
+                        name="Parcelas"
                         placeholder="12"
                         min="1"
+                        max="24"
+                        required
                     />
                     <label for="closing-date"
                         >Data de Fechamento da Fatura:</label
@@ -57,13 +64,15 @@
                     <input
                         type="text"
                         id="closing-date"
-                        name="closing-date"
+                        name="Fechamento da fatura"
                         placeholder="DD/MM/AAAA"
+                        required
                     />
                 </div>
-                <button type="button" id="submit-expense">
+                <button type="submit" id="submit-expense">
                     Salvar Despesa
                 </button>
+
                 <button type="button" id="cancel-expense">Cancelar</button>
             </form>
         </div>
