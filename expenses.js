@@ -4,7 +4,7 @@ const submitExpenseButton = document.getElementById('submit-expense')
 const creditCardFields = document.getElementById('credit-card-fields')
 const paymentMethod = document.getElementById('payment-method')
 paymentMethod.addEventListener('change', function () {
-    if (paymentMethod.value === 'Cartao-crédito') {
+    if (paymentMethod.value === 'Cartao de credito') {
         creditCardFields.style.display = 'block'
     } else {
         creditCardFields.style.display = 'none'
