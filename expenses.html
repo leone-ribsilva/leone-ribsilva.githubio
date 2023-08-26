@@ -16,20 +16,12 @@
             >
                 <label for="expense-type">Tipo de Despesa:</label>
                 <select id="expense-type" name="Tipo de despesa" required>
+                    <option value="" disabled selected>Selecione</option>
                     <option value="Saude">Saúde</option>
                     <option value="Educacao">Educação</option>
                     <option value="Vestuario">Vestuário</option>
                     <option value="Supermercado">Supermercado</option>
                     <option value="Outros">Outros</option>
-                </select>
-                <label for="payment-method">Forma de Pagamento:</label>
-                <select id="payment-method" name="Forma de pagamento" required>
-                    <option value="dinheiro">Dinheiro</option>
-                    <option value="pix">PIX</option>
-                    <option value="cartao-credito">Cartão de Crédito</option>
-                    <option value="cartao-debito">Cartão de Débito</option>
-                    <option value="boleto">Boleto</option>
-                    <option value="debito-automatico">Débito Automático</option>
                 </select>
                 <label for="purchase-date">Data da Compra:</label>
                 <input
@@ -39,6 +31,17 @@
                     placeholder="DD/MM/AAAA"
                     required
                 />
+                <label for="payment-method">Forma de Pagamento:</label>
+                <select id="payment-method" name="Forma de pagamento" required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="dinheiro">Dinheiro</option>
+                    <option value="pix">PIX</option>
+                    <option value="cartao-credito">Cartão de Crédito</option>
+                    <option value="cartao-debito">Cartão de Débito</option>
+                    <option value="boleto">Boleto</option>
+                    <option value="debito-automatico">Débito Automático</option>
+                </select>
+
                 <label for="amount">Valor:</label>
                 <input
                     type="text"
@@ -53,7 +56,7 @@
                         type="number"
                         id="installments"
                         name="Parcelas"
-                        placeholder="12"
+                        placeholder=""
                         min="1"
                         max="24"
                         required
