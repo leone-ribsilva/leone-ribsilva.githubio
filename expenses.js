@@ -17,11 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (paymentMethod.value === 'cartao-credito') {
             installmentNumber.removeAttribute('disabled')
             invoiceClosingDate.removeAttribute('disabled')
+            creditCardFields.style.display = 'block'
         } else {
             installmentNumber.value = 1
             invoiceClosingDate.value = purchaseDate.value
-            //installmentNumber.setAttribute('disabled', true)
-            //invoiceClosingDate.setAttribute('disabled', true)
+            installmentNumber.setAttribute('disabled', true)
+            invoiceClosingDate.setAttribute('disabled', true)
+            creditCardFields.style.display = 'none'
         }
     })
 
