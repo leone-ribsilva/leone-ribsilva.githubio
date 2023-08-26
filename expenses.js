@@ -10,12 +10,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const invoiceClosingDate = document.querySelector('#closing-date')
     const purchaseDate = document.querySelector('#purchase-date')
 
-    creditCardFields.style.display = 'block'
     installmentNumber.setAttribute('disabled', true)
     invoiceClosingDate.setAttribute('disabled', true)
 
     paymentMethod.addEventListener('input', function () {
         if (paymentMethod.value === 'cartao-credito') {
+            creditCardFields.style.display = 'block'
             installmentNumber.removeAttribute('disabled')
             invoiceClosingDate.removeAttribute('disabled')
         } else {
