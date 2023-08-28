@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="styles.css" />
-        <script src="https://apis.google.com/js/api.js"></script>
+        <!-- <script src="https://apis.google.com/js/api.js"></script> -->
         <script src="expenses.js" defer></script>
         <script src="index.js" defer></script>
         <title>Controle Financeiro</title>
@@ -17,15 +17,14 @@
             <div id="expenses-list">
                 <!-- Tabela de despesas por mês -->
                 <h2>Despesas por Mês</h2>
-                <!-- <table id="expenses-by-month"> -->
-                    <table id="month-list"></table>
+                <table>
                     <thead>
                         <tr>
                             <th>Mês</th>
                             <th>Valor Total</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="month-list">
                         <!-- As linhas serão preenchidas dinamicamente via JavaScript -->
                     </tbody>
                 </table>
@@ -33,4 +32,27 @@
             <div id="table-container"></div>
         </div>
     </body>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js'
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.3.0/firebase-analytics.js'
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: 'AIzaSyC0T1Tt6lRQtl0FrLNX9WNxxRc7MBRXxP4',
+            authDomain: 'controlefinanceirov1.firebaseapp.com',
+            projectId: 'controlefinanceirov1',
+            storageBucket: 'controlefinanceirov1.appspot.com',
+            messagingSenderId: '240376100713',
+            appId: '1:240376100713:web:55d5b35b60d1549562aff8',
+            measurementId: 'G-ZXRBFHWFFZ'
+        }
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig)
+        const analytics = getAnalytics(app)
+    </script>
 </html>

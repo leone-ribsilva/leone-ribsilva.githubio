@@ -64,111 +64,71 @@ document.addEventListener('DOMContentLoaded', function () {
         }).format(value)
     }
 
-    // Restante do código para carregar despesas da planilha
-    const url =
-        'https://script.google.com/macros/s/AKfycbzmylTHNOaxhvf8GwzBDO6FIP6tfbNY-WwT-4jB9JJw4tJuqQbx3IMwU82SKRg9opkq/exec'
+    // Salvar uma despesa
+    // No lugar do fetch(url)
+    database.ref('expenses').push({
+        type: expenseType,
+        date: purchaseDate
+        // ... outros campos
+    })
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                expenses = data.data.map(expense => ({
-                    ...expense,
-                    value: parseFloat(expense.value),
-                    month: expense.date.split('/')[1]
-                }))
+    // Recuperar despesas
+    // No lugar do fetch(url)
+    database
+        .ref('expenses')
+        .once('value')
+        .then(snapshot => {
+            const expensesData = snapshot.val()
+            const expensesArray = Object.values(expensesData) // Convertendo o objeto em um array
 
-                months.forEach(createMonthItem)
-            } else {
-                console.error('Erro ao buscar despesas')
-            }
+            // Limpar o conteúdo existente da tabela
+            const tbody = document.querySelector('#month-list')
+            tbody.innerHTML = ''
+
+            expensesArray.forEach(expense => {
+                const row = document.createElement('tr')
+
+                const monthCell = document.createElement('td')
+                monthCell.textContent = expense.date.split('/')[1] // Extraindo o mês da data
+                row.appendChild(monthCell)
+
+                const valueCell = document.createElement('td')
+                valueCell.textContent = formatCurrency(
+                    parseFloat(expense.value)
+                )
+                row.appendChild(valueCell)
+
+                tbody.appendChild(row)
+            })
         })
         .catch(error => {
             console.error(error)
         })
-
-    // ID do cliente OAuth 2.0
-    const CLIENT_ID =
-        '1034505691370-qg6bi0cqf3as7tsqounhads3br928m2v.apps.googleusercontent.com'
-
-    // Escopo da API do Google Sheets
-    const SCOPE = 'https://www.googleapis.com/auth/spreadsheets.readonly'
-
-    // Função para inicializar o cliente JavaScript do Google
-    function initClient() {
-        gapi.client
-            .init({
-                clientId: CLIENT_ID,
-                scope: SCOPE
-            })
-            .then(
-                function () {
-                    // Chame a função readSheetData para ler os dados da planilha e atualizar a tabela
-                    readSheetData()
-                },
-                function (error) {
-                    // Exiba um erro se a inicialização falhar
-                    console.error('Error: ' + error.details)
-                }
-            )
-    }
-
-    // Carregue o cliente JavaScript do Google e chame a função initClient quando estiver pronto
-    gapi.load('client', initClient)
-
-    // ID da planilha do Google Sheets
-    const SPREADSHEET_ID = '1EN0SFbArNAqx8y8RShj6bHb_GdEE3jA-gLGP5tLzmzg'
-
-    // Intervalo de células a ser lido (por exemplo, 'A2:E')
-    const RANGE = 'A2:F'
-
-    // Função para ler os dados da planilha
-    function readSheetData() {
-        // Chame a API do Google Sheets para ler os dados da planilha
-        gapi.client.sheets.spreadsheets.values
-            .get({
-                spreadsheetId: SPREADSHEET_ID,
-                range: RANGE
-            })
-            .then(
-                function (response) {
-                    // Armazene os dados retornados em uma matriz
-                    const data = response.result.values
-
-                    // Atualize a tabela com os dados retornados
-                    updateTable(data)
-                },
-                function (response) {
-                    // Exiba um erro se a solicitação falhar
-                    console.error('Error: ' + response.result.error.message)
-                }
-            )
-    }
-
-    // Função para atualizar a tabela com os dados da planilha
-    function updateTable(data) {
-        // Selecione o elemento tbody da tabela
-        const tbody = document.querySelector('#month-list')
-
-        // Limpe o conteúdo existente da tabela
-        tbody.innerHTML = ''
-
-        // Crie uma nova linha para cada linha de dados
-        data.forEach(function (row) {
-            const tr = document.createElement('tr')
-
-            // Crie uma nova célula para cada coluna de dados
-            row.forEach(function (cell) {
-                const td = document.createElement('td')
-                td.textContent = cell
-                tr.appendChild(td)
-            })
-
-            // Adicione a linha à tabela
-            tbody.appendChild(tr)
-        })
-    }
-
-    // Chame a função readSheetData para ler os dados da planilha e atualizar a tabela
-    readSheetData()
 })
+
+//     // Função para atualizar a tabela com os dados da planilha
+//     function updateTable(data) {
+//         // Selecione o elemento tbody da tabela
+//         const tbody = document.querySelector('#month-list tbody')
+
+//         // Limpe o conteúdo existente da tabela
+//         tbody.innerHTML = ''
+
+//         // Crie uma nova linha para cada linha de dados
+//         data.forEach(function (row) {
+//             const tr = document.createElement('tr')
+
+//             // Crie uma nova célula para cada coluna de dados
+//             row.forEach(function (cell) {
+//                 const td = document.createElement('td')
+//                 td.textContent = cell
+//                 tr.appendChild(td)
+//             })
+
+//             // Adicione a linha à tabela
+//             tbody.appendChild(tr)
+//         })
+//     }
+
+//     // Chame a função readSheetData para ler os dados da planilha e atualizar a tabela
+//     readSheetData()
