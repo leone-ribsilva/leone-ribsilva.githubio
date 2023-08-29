@@ -1,3 +1,11 @@
+//const firestore = getFirestore(app) // Obtendo a instância do Firestore
+
+// Agora você pode usar a variável 'firestore' para operações de banco de dados
+// Por exemplo:
+
+import { getFirestore } from 'firebase/firestore'
+const database = getFirestore(app) // 'app' é a instância inicializada do Firebase
+
 document.addEventListener('DOMContentLoaded', function () {
     const monthList = document.getElementById('month-list')
     const addExpenseButton = document.querySelector('a[href="expenses.html"]')
@@ -105,30 +113,3 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error(error)
         })
 })
-
-//     // Função para atualizar a tabela com os dados da planilha
-//     function updateTable(data) {
-//         // Selecione o elemento tbody da tabela
-//         const tbody = document.querySelector('#month-list tbody')
-
-//         // Limpe o conteúdo existente da tabela
-//         tbody.innerHTML = ''
-
-//         // Crie uma nova linha para cada linha de dados
-//         data.forEach(function (row) {
-//             const tr = document.createElement('tr')
-
-//             // Crie uma nova célula para cada coluna de dados
-//             row.forEach(function (cell) {
-//                 const td = document.createElement('td')
-//                 td.textContent = cell
-//                 tr.appendChild(td)
-//             })
-
-//             // Adicione a linha à tabela
-//             tbody.appendChild(tr)
-//         })
-//     }
-
-//     // Chame a função readSheetData para ler os dados da planilha e atualizar a tabela
-//     readSheetData()

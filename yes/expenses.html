@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./styles.css" />
-        <script src="./expenses.js" defer></script>
+        <link rel="stylesheet" href="styles.css" />
+        <script type="module" src="expenses.js" defer></script>
         <title>Cadastrar Despesa</title>
     </head>
     <body>
@@ -72,9 +72,12 @@
                 <button type="submit" id="submit-expense">
                     Salvar Despesa
                 </button>
-
                 <button type="button" id="cancel-expense">Cancelar</button>
             </form>
         </div>
     </body>
+    <script type="module">
+        import { getFirestore } from '/node_modules/firebase/firestore'
+        const firestore = getFirestore(app) // 'app' é a instância inicializada do Firebase
+    </script>
 </html>
