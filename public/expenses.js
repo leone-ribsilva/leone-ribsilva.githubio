@@ -4,6 +4,20 @@ const submitExpenseButton = document.getElementById('submit-expense')
 const creditCardFields = document.getElementById('credit-card-fields')
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: 'AIzaSyC0T1Tt6lRQtl0FrLNX9WNxxRc7MBRXxP4',
+        authDomain: 'controlefinanceirov1.firebaseapp.com',
+        projectId: 'controlefinanceirov1',
+        storageBucket: 'controlefinanceirov1.appspot.com',
+        messagingSenderId: '240376100713',
+        appId: '1:240376100713:web:55d5b35b60d1549562aff8',
+        measurementId: 'G-ZXRBFHWFFZ'
+    }
+
+    firebase.initializeApp(firebaseConfig) // 'app' é a instância inicializada do Firebase
+    const firestore = firebase.firestore()
+
     const paymentMethod = document.querySelector('#payment-method')
     const installmentNumber = document.querySelector('#installments')
     const invoiceClosingDate = document.querySelector('#closing-date')

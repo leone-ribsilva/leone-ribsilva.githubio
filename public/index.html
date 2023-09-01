@@ -4,9 +4,15 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="./financeiro.png" type="image/x-icon" />
+        <!-- Firebase scripts -->
+        <script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-firestore.js"></script>
+
+        <!-- Estilos e scripts -->
         <link rel="stylesheet" href="styles.css" />
         <script src="expenses.js" defer></script>
-        <script type="module" src="index.js" defer></script>
+        <script src="index.js" defer></script>
+
         <title>Controle Financeiro</title>
     </head>
     <body>
@@ -32,29 +38,4 @@
             <div id="table-container"></div>
         </div>
     </body>
-    <script type="module">
-        const app = initializeApp(firebaseConfig)
-        const analytics = getAnalytics(app)
-        const expensesRef = firestore.collection('expenses')
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from '/node_modules/firebase/app'
-        import { getAnalytics } from '/node_modules/firebase/analytics'
-        import { getFirestore } from '/node_modules/firebase/firestore'
-
-        const firestore = getFirestore(app) // 'app' é a instância inicializada do Firebase
-
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: 'AIzaSyBouGlL5eWYcsfdR1AHHEgXreI23aud13Y',
-            authDomain: 'database-controlefinanceirov1.firebaseapp.com',
-            projectId: 'database-controlefinanceirov1',
-            storageBucket: 'database-controlefinanceirov1.appspot.com',
-            messagingSenderId: '467813206640',
-            appId: '1:467813206640:web:04e04c3174554d7fe082b5'
-        }
-    </script>
 </html>

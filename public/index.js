@@ -1,12 +1,19 @@
-//const firestore = getFirestore(app) // Obtendo a instância do Firestore
-
-// Agora você pode usar a variável 'firestore' para operações de banco de dados
-// Por exemplo:
-
-import { getFirestore } from 'firebase/firestore'
-const database = getFirestore(app) // 'app' é a instância inicializada do Firebase
-
 document.addEventListener('DOMContentLoaded', function () {
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: 'AIzaSyC0T1Tt6lRQtl0FrLNX9WNxxRc7MBRXxP4',
+        authDomain: 'controlefinanceirov1.firebaseapp.com',
+        projectId: 'controlefinanceirov1',
+        storageBucket: 'controlefinanceirov1.appspot.com',
+        messagingSenderId: '240376100713',
+        appId: '1:240376100713:web:55d5b35b60d1549562aff8',
+        measurementId: 'G-ZXRBFHWFFZ'
+    }
+
+    firebase.initializeApp(firebaseConfig) // 'app' é a instância inicializada do Firebase
+    const firestore = firebase.firestore()
+    const expensesRef = firestore.collection('expenses') // Referência à coleção 'expenses'
+
     const monthList = document.getElementById('month-list')
     const addExpenseButton = document.querySelector('a[href="expenses.html"]')
 
