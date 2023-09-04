@@ -1,95 +1,184 @@
 /* Estilos gerais */
+html {
+    -webkit-text-size-adjust: 100%;
+}    
+
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f2f2f2;
+    background-color: #271A45;
     margin: 0;
     padding: 0;
+    text-align: center;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    text-align: center;
 }
 
 /* Título principal */
-h1, h2, h3 {
-    font-size: 28px;
+h1 {
+    font-size: 0 auto;
     text-align: center;
-    color: #333;
+    color: #E1E1E6;
     margin-bottom: 20px;
+    /* background-color: aqua; */
+    margin: auto 0;
+}
+
+h2, h3 {
+    font-size: 0 auto;
+    text-align: center;
+    color: #E1E1E6;
+    margin-bottom: 20px;
+}
+
+#div-expense-table {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
 }
 
 label {
     display: block;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-left: 2px;
+    margin-bottom: 2px;
+    color: #E1E1E6;
+    text-align: left;
 }
 
 input[type="text"],
 input[type="date"],
 input[type="number"],
 select {
-    width: 100%;
+    width: -webkit-fill-available;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #633BBC;
+    border-radius: 10px;
     margin-bottom: 15px;
     font-size: 16px;
+    background-color: #8257E5;
+    color: #271A45;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+input::placeholder {
+    color: #271A45;
 }
 
 /* Botão de cadastro */
 button[type="submit"] {
-    background-color: #007BFF;
-    color: #fff;
+    background-color: #633BBC;
+    color: #E1E1E6;
     padding: 12px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
     transition: background-color 0.3s ease;
     width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,1);
 }
 
 button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #271A45;
 }
 
 /* Div para limitar a largura da tabela */
-.table-container {
-    max-width: 100%; /* A tabela se ajustará automaticamente ao tamanho da tela */
-    overflow-x: auto; /* Adiciona uma barra de rolagem horizontal quando necessário */
-    margin-top: 20px;
+#table-container {
+    margin: 0 auto;
+    max-width: 400px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* #div-expense-table table {
+    margin: 0 auto;
+    max-width: 400px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+} */
+
+
+div {
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 
 /* Tabela de despesas */
 table {
-    width: 100%;
+    /* width: 80%; */
     border-collapse: collapse;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    /* margin: 0 auto; */
+    /* text-align: center; */
+    
+    
 }
 
 /* Estilos para cabeçalhos de tabela */
-th {
-    background-color: #007BFF;
-    color: #fff;
+th, expense-table {
+    background-color: #8257E5;
+    color: #E1E1E6;
     padding: 12px 15px;
-    text-align: left;
+    text-align: center;
+    font-weight: bold;
+    /* text-align: center; */
+}
+
+th {
+    font-size: 50%;
+}
+
+#th0 {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+#th6 {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 /* Estilos para células de tabela */
 td {
     padding: 12px 15px;
-    text-align: left;
-    border-top: 1px solid #ccc;
+    /* text-align: center; */
+    border-top: 1px solid #E1E1E6;
 }
 
-/* Estilos para a primeira célula da tabela (ID) */
-td:first-child {
-    font-weight: bold;
+/* Tabelas despesas por mês */
+#monthly-tables {
+    display: block;
+    place-items: center;
+    max-width: 400px;
+    margin: 5px auto;
+    background-color: #E1E1E6;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
+
+/* Formulário de despesa */
+#expense-form, #expense-table ,#div-expense-table, #monthly-tables {
+    background-color: #633BBC;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Define uma largura máxima para melhorar a legibilidade em telas pequenas */
+    margin: 5px auto; /* Centraliza o formulário na tela */
+    /* width: auto; */
+    text-align: center;
+}
+
 
 /* Botão de exclusão */
 .delete-button {
@@ -107,41 +196,20 @@ td:first-child {
     background-color: #ff0000;
 }
 
-#monthly-tables {
-    display: grid;
-    place-items: center;
-    max-width: 400px;
-    margin: 5px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Formulário de despesa */
-#expense-form, #expense-table {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 400px; /* Define uma largura máxima para melhorar a legibilidade em telas pequenas */
-    margin: 5px auto; /* Centraliza o formulário na tela */
-    /* width: auto; */
-    
-}
-
+/* Estilo do botão de ocultar despesas pagas */
 #hide-paid-months {
-    background-color: #FF3333;
-    color: #fff;
+    background-color: #AD1E12;
+    color: #E1E1E6;
     padding: 12px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
     transition: background-color 0.3s ease;
     width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 #hide-paid-months:hover {
-    background-color: #a00000;
+    background-color: #2D090C;
 }
