@@ -190,9 +190,9 @@ td {
 }
 
 /* Formulário de despesa */
-#expense-form,  #div-expense-table, #monthly-tables {
+#expense-form, #div-expense-table, #monthly-tables {
     background-color: #633BBC;
-    padding: 10px;
+    padding: 30px;
     border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 350px; /* Define uma largura máxima para melhorar a legibilidade em telas pequenas */
