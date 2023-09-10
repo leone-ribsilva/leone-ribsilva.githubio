@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=no"
+        />
         <title>Controle Financeiro</title>
         <link rel="stylesheet" href="styles.css" />
-        <script src="script.js"></script>
     </head>
     <body>
         <form id="expense-form">
             <h1>Controle Financeiro</h1>
             <h2>Cadastre uma nova despesa</h2>
-            <label for="expense-type">Tipo de Despesa</label>
+            <label for="expense-type">Tipo de despesa</label>
             <select id="expense-type" required>
                 <option value="" disabled selected>Selecione</option>
                 <option value="Alimentação">Alimentação</option>
@@ -21,15 +23,22 @@
                 <option value="Supermercado">Supermercado</option>
                 <option value="Outros">Outros</option>
             </select>
-            <label for="expense-date">Data da Compra</label>
-            <input type="date" id="expense-date" required />
-            <label for="payment-method">Forma de Pagamento</label>
+            <label for="expense-date">Data da compra</label>
+            <input
+                type="text"
+                id="expense-date"
+                required
+                placeholder="DD/MM/AAAA"
+                onfocus="(this.type='date')"
+                onblur="(this.type='date')"
+            />
+            <label for="payment-method">Forma de pagamento</label>
             <select id="payment-method" required>
                 <option value="" disabled selected>Selecione</option>
                 <option value="Dinheiro">Dinheiro</option>
                 <option value="PIX">PIX</option>
-                <option value="cartao-credito">Cartão de Crédito</option>
-                <option value="Cartão de Débito">Cartão de Débito</option>
+                <option value="C.Crédito">Cartão de Crédito</option>
+                <option value="C.Débito">Cartão de Débito</option>
             </select>
             <label for="expense-value">Valor</label>
             <input
@@ -40,7 +49,7 @@
                 placeholder="R$"
             />
             <div id="credit-card-fields" style="display: none">
-                <label for="installments">Número de Parcelas</label>
+                <label for="installments">Número de parc.</label>
                 <input type="number" id="installments" min="1" max="24" />
                 <label for="closing-date">Data de Fechamento da Fatura</label>
                 <input type="date" id="closing-date" />
@@ -51,19 +60,19 @@
         <div id="div-expense-table">
             <h2>Despesas Cadastradas</h2>
             <div id="table-container">
-                <table>
+                <table id="expense-table">
                     <thead>
                         <tr>
                             <th id="th0">Tipo</th>
                             <th>Data</th>
-                            <th>Forma de Pagamento</th>
+                            <th>Forma de pag.</th>
                             <th>Nº de parcelas</th>
                             <th>Fecham. fatura</th>
-                            <th>Valor</th>
+                            <th>Valor R$</th>
                             <th id="th6">Ações</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="expense-table-body"></tbody>
                 </table>
             </div>
         </div>
@@ -73,5 +82,6 @@
             <h2>Despesas por mês</h2>
             <button id="hide-paid-months">Ocultar meses pagos</button>
         </div>
+        <script src="./script.js"></script>
     </body>
 </html>
