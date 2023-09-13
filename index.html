@@ -6,16 +6,17 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=no"
         />
+        <link rel="stylesheet" href="./normalize.css" />
+        <link rel="stylesheet" href="./styles.css" />
         <title>Controle Financeiro</title>
-        <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
         <form id="expense-form">
             <h1>Controle Financeiro</h1>
             <h2>Cadastre uma nova despesa</h2>
-            <label for="expense-type">Tipo de despesa</label>
+            <label for="expense-type"></label>
             <select id="expense-type" required>
-                <option value="" disabled selected>Selecione</option>
+                <option value="" disabled selected>Tipo de despesa</option>
                 <option value="Alimentação">Alimentação</option>
                 <option value="Saúde">Saúde</option>
                 <option value="Educação">Educação</option>
@@ -23,38 +24,57 @@
                 <option value="Supermercado">Supermercado</option>
                 <option value="Outros">Outros</option>
             </select>
-            <label for="expense-date">Data da compra</label>
+            <label for="expense-date"></label>
             <input
                 type="text"
                 id="expense-date"
                 required
-                placeholder="DD/MM/AAAA"
-                onfocus="(this.type='date')"
-                onblur="(this.type='date')"
+                placeholder="Data da compra"
+                autocomplete="off"
+                onfocus="this.type='date'"
+                onblur="if(!this.value) this.type='text'"
             />
-            <label for="payment-method">Forma de pagamento</label>
+            <label for="payment-method"></label>
             <select id="payment-method" required>
-                <option value="" disabled selected>Selecione</option>
+                <option value="" disabled selected>Forma de pagamento</option>
                 <option value="Dinheiro">Dinheiro</option>
                 <option value="PIX">PIX</option>
                 <option value="C.Crédito">Cartão de Crédito</option>
                 <option value="C.Débito">Cartão de Débito</option>
             </select>
-            <label for="expense-value">Valor</label>
+            <label for="expense-value"></label>
             <input
-                type="number"
+                type="text"
                 id="expense-value"
-                step="0.01"
                 required
-                placeholder="R$"
+                placeholder="Valor (R$)"
+                autocomplete="off"
             />
-            <div id="credit-card-fields" style="display: none">
-                <label for="installments">Número de parc.</label>
-                <input type="number" id="installments" min="1" max="24" />
-                <label for="closing-date">Data de Fechamento da Fatura</label>
-                <input type="date" id="closing-date" />
+            <!-- oninput="formatarValor(this)" -->
+            <!-- step="0.01"
+                min="0.01" -->
+            <div id="credit-card-fields" class="hidden">
+                <label for="installments"></label>
+                <input
+                    type="number"
+                    id="installments"
+                    min="1"
+                    max="24"
+                    placeholder="Número de parcelas"
+                    autocomplete="off"
+                />
+                <label for="closing-date"></label>
+                <input
+                    type="text"
+                    id="closing-date"
+                    required
+                    placeholder="Data de fechamento da fatura"
+                    autocomplete="off"
+                    onfocus="this.type='date'"
+                    onblur="if(!this.value) this.type='text'"
+                />
             </div>
-            <button type="submit">Cadastrar Despesa</button>
+            <button type="submit">Cadastrar</button>
         </form>
         <!-- <div id="div-expense-table"> -->
         <div id="div-expense-table">

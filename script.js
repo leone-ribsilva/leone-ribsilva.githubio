@@ -8,9 +8,8 @@ function addExpense() {
     const date = formatDate(document.getElementById('expense-date').value)
     const paymentMethod = document.getElementById('payment-method').value
     const value = parseFloat(document.getElementById('expense-value').value)
-    const closingDate = formatDate(
-        document.getElementById('closing-date').value
-    ) // Captura o valor da data de fechamento da fatura
+    const closingDateInput = document.getElementById('closing-date') // Captura o elemento de data de fechamento da fatura
+    const closingDate = formatDate(closingDateInput.value) // Captura o valor da data de fechamento da fatura
 
     let expense = {
         id: currentId++,
@@ -107,11 +106,19 @@ document
 // Inicializa a tabela de despesas
 updateExpenseTable()
 
+// function formatDate(inputDate) {
+//     let data = new Date(inputDate)
+//     let options = { year: 'numeric', month: '2-digit', day: '2-digit' }
+//     let formattedDate = data.toLocaleDateString('pt-BR', options)
+//     return formattedDate
+// }
+
 function formatDate(inputDate) {
-    let data = new Date(inputDate)
-    let options = { year: 'numeric', month: '2-digit', day: '2-digit' }
-    let formattedDate = data.toLocaleDateString('pt-BR', options)
-    return formattedDate
+    const dateParts = inputDate.split('-')
+    const year = dateParts[0]
+    const month = dateParts[1]
+    const day = dateParts[2]
+    return `${day}/${month}/${year}`
 }
 
 // Event listener para os botões de exclusão
@@ -122,11 +129,27 @@ document.addEventListener('click', function (event) {
     }
 })
 
+/* Formata os inputs para duas casas decimais depois da vírgula */
+// Seleciona o elemento input
+var input = document.querySelector('#expense-value')
+
+// Adiciona um ouvinte de evento 'input' ao elemento
+input.addEventListener('input', function (e) {
+    // Remove quaisquer caracteres não numéricos
+    var num = this.value.replace(/[^0-9]/g, '')
+
+    // Adiciona a vírgula para as duas casas decimais
+    num = num.replace(/(\d)(\d{2})$/, '$1,$2')
+
+    // Atualiza o valor do input
+    this.value = num.replace(',', '.')
+})
+
 // let data = '2023-09-10'
 // console.log(formatDate(data)) // Retorna a data no formato DD/MM/AA
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Event listener para a mudança na forma de pagamento
+    const closingDateInput = document.getElementById('closing-date') // Captura o elemento de data de fechamento da fatura
     document
         .getElementById('payment-method')
         .addEventListener('change', function () {
@@ -135,11 +158,31 @@ document.addEventListener('DOMContentLoaded', function () {
             const selectedPaymentMethod = this.value
 
             if (selectedPaymentMethod === 'C.Crédito') {
-                creditCardFields.style.display = 'block'
-                console.log('Mudou para block')
+                creditCardFields.classList.remove('hidden')
+                closingDateInput.setAttribute('required', '')
             } else {
-                creditCardFields.style.display = 'none'
-                console.log('Mudou para none')
+                creditCardFields.classList.add('hidden')
+                closingDateInput.removeAttribute('required')
             }
         })
+    // // Obtém a data atual no formato "YYYY-MM-DD"
+    // const dataAtual = new Date().toISOString().split('T')[0]
+
+    // // Define a data máxima como a data atual
+    // document.getElementById('expense-date').max = dataAtual
+
+    // Obtém a data atual
+    const dataAtual = new Date()
+
+    // Obtém o ano, mês e dia da data atual
+    const ano = dataAtual.getFullYear()
+    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0')
+    const dia = String(dataAtual.getDate()).padStart(2, '0')
+
+    // Formata a data atual no formato "YYYY-MM-DD"
+    const dataFormatada = `${ano}-${mes}-${dia}`
+
+    // Define a data máxima como a data atual
+    document.getElementById('expense-date').max = dataFormatada
+    document.getElementById('closing-date').min = dataFormatada
 })
