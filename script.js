@@ -106,13 +106,6 @@ document
 // Inicializa a tabela de despesas
 updateExpenseTable()
 
-// function formatDate(inputDate) {
-//     let data = new Date(inputDate)
-//     let options = { year: 'numeric', month: '2-digit', day: '2-digit' }
-//     let formattedDate = data.toLocaleDateString('pt-BR', options)
-//     return formattedDate
-// }
-
 function formatDate(inputDate) {
     const dateParts = inputDate.split('-')
     const year = dateParts[0]
@@ -145,9 +138,6 @@ input.addEventListener('input', function (e) {
     this.value = num.replace(',', '.')
 })
 
-// let data = '2023-09-10'
-// console.log(formatDate(data)) // Retorna a data no formato DD/MM/AA
-
 document.addEventListener('DOMContentLoaded', function () {
     const closingDateInput = document.getElementById('closing-date') // Captura o elemento de data de fechamento da fatura
     document
@@ -165,11 +155,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 closingDateInput.removeAttribute('required')
             }
         })
-    // // Obtém a data atual no formato "YYYY-MM-DD"
-    // const dataAtual = new Date().toISOString().split('T')[0]
-
-    // // Define a data máxima como a data atual
-    // document.getElementById('expense-date').max = dataAtual
 
     // Obtém a data atual
     const dataAtual = new Date()
