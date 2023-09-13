@@ -1,3 +1,10 @@
+/* :root {
+    --main-bg-color: #271A45;
+    --secondary-bg-color: #633BBC;
+    --tertiary-bg-color: #8257E5;
+    --text-color: #E1E1E6;
+    --error-color: #AD1E12;
+} */
 /* Zera margens, preenchimentos e bordas para todos os elementos */
 * {
     margin: 0;
@@ -62,6 +69,7 @@ h2 {
 #div-expense-table {
     display: block;
     padding: 25px;
+    /* margin: 0 auto; */
 }
 
 #expense-form {
@@ -69,6 +77,8 @@ h2 {
     padding: 40px;
     border-radius: 5px;
 }
+
+/* Adicionados/Ajustados (fim) */
 
 label {
     display: block;
@@ -95,6 +105,7 @@ input, select {
     color: var(--text-color);
     border: 2px solid var(--secondary-bg-color);
     transition: border 0.2s ease 0s;
+
     -webkit-appearance: none; /* Remove a aparência padrão do Chrome */
     -moz-appearance: none; /* Remove a aparência padrão do Firefox */
     appearance: none; /* Remove a aparência padrão em navegadores modernos */
@@ -112,9 +123,17 @@ input[type=number]::-webkit-inner-spin-button {
     /* height: 42px; */
 }
 
+/* input[type="date"], input[type="text"], input[type="number"] {
+    height: 42px !important;
+} */
+
 input[type="date"]::-webkit-calendar-picker-indicator {
 filter: invert(1);
 }
+
+/* input[type="date"]::-webkit-calendar-picker-indicator {
+filter: invert(35%) sepia(20%) saturate(1500%) hue-rotate(260deg);
+} */
 
 button[type="submit"], .delete-button, #hide-paid-months {
     height: 35px;
@@ -161,4 +180,72 @@ td {
 
 .hidden {
    display:none; 
+#td0 {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    text-align: left;
+}
+
+#td6 {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#monthly-tables {
+    display: block;
+    place-items: center;
+    max-width: 350px;
+    /* margin: 5px auto; */
+    background-color: #E1E1E6;
+    padding: 10px;
+    /* border-radius: 8px; */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Formulário de despesa */
+#expense-form, #div-expense-table, #monthly-tables {
+    background-color: #633BBC;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 350px; /* Define uma largura máxima para melhorar a legibilidade em telas pequenas */
+    margin: 5px auto; /* Centraliza o formulário na tela */
+    /* width: auto; */
+    text-align: center;
+}
+
+
+/* Botão de exclusão */
+.delete-button {
+    background-color: #AD1E12;
+    color: #E1E1E6;
+    border: none;
+    padding: 2px 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #2D090C;
+}
+
+/* Estilo do botão de ocultar despesas pagas */
+#hide-paid-months {
+    background-color: #AD1E12;
+    color: #E1E1E6;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0 auto;
+    transition: background-color 0.3s ease;
+    width: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+#hide-paid-months:hover {
+    background-color: #2D090C;
 }
