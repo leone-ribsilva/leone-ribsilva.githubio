@@ -37,8 +37,8 @@ body {
 }
 
 h1, h2, h3 {
-    font-size: auto;
-    text-align: start;
+    font-size: 1.2rem;
+    text-align: center;
     color: var(--text-color);
     margin: 0 auto;
 }
@@ -46,6 +46,7 @@ h1, h2, h3 {
 h1 {
     margin-bottom: 10px;
     color: var(--text-color-hover);
+    text-transform: uppercase;
 }
 
 h2 {
