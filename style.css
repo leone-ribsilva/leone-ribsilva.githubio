@@ -1,10 +1,3 @@
-/* :root {
-    --main-bg-color: #271A45;
-    --secondary-bg-color: #633BBC;
-    --tertiary-bg-color: #8257E5;
-    --text-color: #E1E1E6;
-    --error-color: #AD1E12;
-} */
 /* Zera margens, preenchimentos e bordas para todos os elementos */
 * {
     margin: 0;
@@ -44,7 +37,7 @@ body {
 }
 
 h1, h2, h3 {
-    font-size: 25px;
+    font-size: 30px;
     text-align: start;
     color: var(--text-color);
     margin: 0 auto;
@@ -52,11 +45,11 @@ h1, h2, h3 {
 
 h1 {
     margin-bottom: 10px;
+    color: var(--tertiary-bg-color);
 }
 
 h2 {
     font-size: 18px;
-    color: var(--tertiary-bg-color);
 }
 
 #expense-form, #div-expense-table, #monthly-tables {
@@ -65,11 +58,11 @@ h2 {
     margin: 5px auto;
 }
 
-/* Adicionados/Ajustados (início) */
 #div-expense-table {
     display: block;
-    padding: 25px;
-    /* margin: 0 auto; */
+    padding: 40px;
+    background-color: var(--secondary-bg-color);
+    border-radius: 5px;
 }
 
 #expense-form {
@@ -77,8 +70,6 @@ h2 {
     padding: 40px;
     border-radius: 5px;
 }
-
-/* Adicionados/Ajustados (fim) */
 
 label {
     display: block;
@@ -94,8 +85,8 @@ input::placeholder, select:invalid, input [type="date"]::placeholder {
 
 
 input, select {
+    box-sizing: border-box;
     width: -webkit-fill-available;
-    /* height: 42px !important; */
     height: 42px !important;
     padding: 0 10px 0 10px;
     border-radius: 7px;
@@ -105,11 +96,9 @@ input, select {
     color: var(--text-color);
     border: 2px solid var(--secondary-bg-color);
     transition: border 0.2s ease 0s;
-
     -webkit-appearance: none; /* Remove a aparência padrão do Chrome */
     -moz-appearance: none; /* Remove a aparência padrão do Firefox */
     appearance: none; /* Remove a aparência padrão em navegadores modernos */
-    box-sizing: border-box;
 }
 
 
@@ -120,20 +109,11 @@ input[type="date"]:focus, input[type="text"]:focus, input[type="number"]:focus, 
 
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    /* height: 42px; */
 }
-
-/* input[type="date"], input[type="text"], input[type="number"] {
-    height: 42px !important;
-} */
 
 input[type="date"]::-webkit-calendar-picker-indicator {
 filter: invert(1);
 }
-
-/* input[type="date"]::-webkit-calendar-picker-indicator {
-filter: invert(35%) sepia(20%) saturate(1500%) hue-rotate(260deg);
-} */
 
 button[type="submit"], .delete-button, #hide-paid-months {
     height: 35px;
@@ -146,6 +126,8 @@ button[type="submit"], .delete-button, #hide-paid-months {
     font-weight: bold;
     transition: background 0.2s ease 0s, color 0.2s ease 0s;
     text-transform: uppercase;
+    padding: 3px;
+    align-items: center;
 }
 
 /* Tabela de despesas */
@@ -180,72 +162,4 @@ td {
 
 .hidden {
    display:none; 
-#td0 {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    text-align: left;
-}
-
-#td6 {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-#monthly-tables {
-    display: block;
-    place-items: center;
-    max-width: 350px;
-    /* margin: 5px auto; */
-    background-color: #E1E1E6;
-    padding: 10px;
-    /* border-radius: 8px; */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-/* Formulário de despesa */
-#expense-form, #div-expense-table, #monthly-tables {
-    background-color: #633BBC;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 350px; /* Define uma largura máxima para melhorar a legibilidade em telas pequenas */
-    margin: 5px auto; /* Centraliza o formulário na tela */
-    /* width: auto; */
-    text-align: center;
-}
-
-
-/* Botão de exclusão */
-.delete-button {
-    background-color: #AD1E12;
-    color: #E1E1E6;
-    border: none;
-    padding: 2px 2px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 50%;
-    transition: background-color 0.3s ease;
-}
-
-.delete-button:hover {
-    background-color: #2D090C;
-}
-
-/* Estilo do botão de ocultar despesas pagas */
-#hide-paid-months {
-    background-color: #AD1E12;
-    color: #E1E1E6;
-    padding: 10px 10px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 0 auto;
-    transition: background-color 0.3s ease;
-    width: 50%;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-
-#hide-paid-months:hover {
-    background-color: #2D090C;
 }
