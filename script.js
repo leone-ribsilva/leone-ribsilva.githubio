@@ -45,21 +45,37 @@ function updateExpenseTable() {
     for (const expense of expenses) {
         const row = document.createElement('tr')
         row.innerHTML = `
-      <td id="td0">${expense.type}</td>
-      <td>${expense.date}</td>
-      <td>${expense.paymentMethod}</td>
-      <td>${expense.installments}</td>
-      <td>${expense.closingDate}</td>
-      <td>${expense.value.toFixed(2)}</td>
-      <td id="td6"><button class="delete-button" data-id="${
-          expense.id
-      }">Excluir</button></td>
-    `
+    <td id="td0">${expense.type}</td>
+    <td>${expense.date}</td>
+    <td>${expense.paymentMethod}</td>
+    <td>${expense.installments}</td>
+    <td>${expense.closingDate}</td>
+    <td>${expense.value.toFixed(2)}</td>
+    <td id="td6"><button class="delete-button"><i class="fas fa-trash" data-id="${
+        expense.id
+    }"></i></button></td>
+`
 
         tableBody.appendChild(row)
         console.log('O próximo Id é: ', currentId)
     }
 }
+
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('fa-trash')) {
+        const id = parseInt(event.target.dataset.id) // Recupera o ID da despesa do atributo data-id
+
+        // Exibe um diálogo de confirmação
+        const confirmDelete = confirm(
+            'Tem certeza que deseja excluir esta despesa?'
+        )
+
+        // Se o usuário confirmar, executa a ação de exclusão
+        if (confirmDelete) {
+            deleteExpense(id)
+        }
+    }
+})
 
 // Função para limpar os campos do formulário
 function clearFormFields() {
@@ -70,9 +86,10 @@ function clearFormFields() {
     document.getElementById('expense-value').value = ''
     document.getElementById('installments').value = ''
     document.getElementById('closing-date').value = ''
+    document.getElementById('closing-date').type = 'text'
 
     const creditCardFields = document.getElementById('credit-card-fields')
-    creditCardFields.style.display = 'none'
+    creditCardFields.classList.add('hidden')
 }
 
 // Função para excluir uma despesa
@@ -93,6 +110,7 @@ function deleteExpense(id) {
 
     updateExpenseTable()
     console.log('O próximo Id é: ', currentId)
+    // alert('Despesa excluída com sucesso!')
 }
 
 // Event listener para o envio do formulário
@@ -118,7 +136,16 @@ function formatDate(inputDate) {
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('delete-button')) {
         const id = parseInt(event.target.dataset.id) // Recupera o ID da despesa do atributo data-id
-        deleteExpense(id)
+
+        // Exibe um diálogo de confirmação
+        const confirmDelete = confirm(
+            'Tem certeza que deseja excluir esta despesa?'
+        )
+
+        // Se o usuário confirmar, executa a ação de exclusão
+        if (confirmDelete) {
+            deleteExpense(id)
+        }
     }
 })
 
@@ -138,24 +165,23 @@ input.addEventListener('input', function (e) {
     this.value = num.replace(',', '.')
 })
 
+const closingDateInput = document.getElementById('closing-date') // Captura o elemento de data de fechamento da fatura
+document
+    .getElementById('payment-method')
+    .addEventListener('change', function () {
+        const creditCardFields = document.getElementById('credit-card-fields')
+        const selectedPaymentMethod = this.value
+
+        if (selectedPaymentMethod === 'C.Crédito') {
+            creditCardFields.classList.remove('hidden')
+            closingDateInput.setAttribute('required', '')
+        } else {
+            creditCardFields.classList.add('hidden')
+            closingDateInput.removeAttribute('required')
+        }
+    })
+
 document.addEventListener('DOMContentLoaded', function () {
-    const closingDateInput = document.getElementById('closing-date') // Captura o elemento de data de fechamento da fatura
-    document
-        .getElementById('payment-method')
-        .addEventListener('change', function () {
-            const creditCardFields =
-                document.getElementById('credit-card-fields')
-            const selectedPaymentMethod = this.value
-
-            if (selectedPaymentMethod === 'C.Crédito') {
-                creditCardFields.classList.remove('hidden')
-                closingDateInput.setAttribute('required', '')
-            } else {
-                creditCardFields.classList.add('hidden')
-                closingDateInput.removeAttribute('required')
-            }
-        })
-
     // Obtém a data atual
     const dataAtual = new Date()
 
