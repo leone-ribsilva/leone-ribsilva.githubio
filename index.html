@@ -87,6 +87,7 @@
                     <thead>
                         <tr>
                             <th id="th0">Tipo</th>
+                            <th>Id</th>
                             <th>Data</th>
                             <th>Forma de pag.</th>
                             <th>Nº de parcelas</th>
@@ -103,7 +104,24 @@
         <!-- Tabelas por mês -->
         <div id="monthly-tables">
             <h2>Despesas por mês</h2>
-            <button id="hide-paid-months">Ocultar meses pagos</button>
+            <label for="view-month">Selecione o mês:</label>
+            <input
+                type="month"
+                id="view-month"
+                onchange="displayExpensesForSelectedMonth()"
+            />
+            <table id="monthly-expense-table">
+                <thead>
+                    <tr>
+                        <th>Mês</th>
+                        <th>Id</th>
+                        <th>Tipo de despesa</th>
+                        <th>Valor(R$)</th>
+                    </tr>
+                </thead>
+                <tbody id="monthly-expense-table-body"></tbody>
+            </table>
+            <!-- A tabela de despesas por mês será criada via JavaScript -->
         </div>
         <script src="./script.js"></script>
     </body>
