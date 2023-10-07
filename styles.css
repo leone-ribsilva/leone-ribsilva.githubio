@@ -57,13 +57,20 @@ h2 {
     margin-top: 5px;
 }
 
-#expense-form, #monthly-tables {
+#expense-form {
     width: 100%;
     max-width: 240px;
     margin: 5px auto;
 }
 
-#div-expense-table {
+#monthly-expense-table {
+    width: 300px;
+    margin: 15px 5px 15px 5px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#div-expense-table, #monthly-tables {
     display: block;
     padding: 0px;
     width: 320px;
@@ -71,6 +78,10 @@ h2 {
     background-color: var(--secondary-bg-color);
     border-radius: 5px;
     justify-content: center;
+}
+
+#monthly-tables {
+    margin-top: 5px;
 }
 
 #expense-table {
@@ -87,6 +98,14 @@ h2 {
     background-color: var(--secondary-bg-color);
     padding: 40px;
     border-radius: 5px;
+}
+
+#label-view-month {
+    margin: 0px;
+}
+
+#view-month {
+    width: 175px;
 }
 
 label {
@@ -120,18 +139,22 @@ input, select {
 }
 
 
-input[type="date"]:focus, input[type="text"]:focus, input[type="number"]:focus, select:focus {
+input[type="date"]:focus, input[type="text"]:focus, input[type="number"]:focus, input[type="month"]:focus, select:focus {
     border: 2px solid var(--border-focus) !important;
     outline: none;
 }
 
-input[type=number]::-webkit-inner-spin-button {
+input[type=number], input[type="month"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
 filter: invert(1);
 }
+
+input[type="month"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    }
 
 button[type="submit"], #hide-paid-months {
     height: 35px;
@@ -175,7 +198,7 @@ table {
     display: block;
 }
 
-#table-container {
+#table-container, #div-monthly-tables {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -216,12 +239,17 @@ td {
 #td0 {
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
-    text-align: left;
+    text-align: center;
 }
 
 #td6 {
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
+}
+
+#td-footer {
+    border-radius: 3px;
+    font-size: 0.8em;
 }
 
 .hidden {

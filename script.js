@@ -30,9 +30,6 @@ function addExpense() {
         )
 
         for (let i = 0; i < installments; i++) {
-            //installmentExpense.id = currentId
-            // installmentExpense.originalId = originalId // Adiciona o campo originalId
-            // installmentExpense.originalId = currentId // Adiciona o campo originalId
             let installmentExpense = { ...expense }
             installmentExpense.value = value / installments
             let installmentDate = new Date(date)
@@ -54,30 +51,14 @@ function addExpense() {
         expenses.push(installmentExpenseDate)
     } else {
         let oneExpenses = { ...expense }
-        //oneExpenses.value = value
 
         let oneExpenseDate = date
         oneExpenseDate.setDate(oneExpenseDate.getDate() + 1)
-        //oneExpenseDate.setMonth(oneExpenseDate.getMonth())
         oneExpenses.date = oneExpenseDate
 
-        //let installmentExpense = { ...expense }
-
-        // let installmentexpenseDate = new Date(date)
-        // installmentexpenseDate.setDate(installmentexpenseDate.getDate() + 1)
-        // oneExpenses.date = installmentexpenseDate
-
-        //installmentExpense.closingDate = installmentexpenseDate
-
-        //allExpenses.push(oneExpenses) // Adiciona a despesa à lista de todas as despesas
-        //allExpenses.push(installmentExpenseDate) // Adiciona a despesa à lista de todas as despesas
         expenses.push(expense) // Adiciona a despesa à lista de despesas para exibição na tabela
         allExpenses.push(expense)
-        //expenses.push(oneExpenses) // Adiciona a despesa à lista de todas as despesas
-        // expense.originalId = originalId // Adiciona o campo originalId
     }
-
-    //expenses.push(oneExpenses) // Adiciona a despesa à lista de despesas para exibição na tabela
 
     updateExpenseTable()
     updateMonthTable()
@@ -99,7 +80,6 @@ function updateExpenseTable() {
         } else {
             dataFechamento = ''
         }
-        //
 
         const row = document.createElement('tr')
         row.innerHTML = `
@@ -129,15 +109,14 @@ function updateMonthTable() {
     monthlyTableBody.innerHTML = ''
 
     for (const expense of allExpenses) {
-        // if (expense.date.startsWith(selectedMonth)) {
         if (expense.date >= selectedMonth) {
             var dataCompra = formatDateMonthYear(expense.date)
             const row = document.createElement('tr')
             row.innerHTML = `
-                <td>${dataCompra}</td>
+                <td id="td0">${dataCompra}</td>
                 <td>${expense.id}</td>
                 <td>${expense.type}</td>
-                <td>${expense.value.toFixed(2)}</td>
+                <td id="td6">${expense.value.toFixed(2)}</td>
             `
 
             monthlyTableBody.appendChild(row)
@@ -148,7 +127,6 @@ function updateMonthTable() {
 function formatDateDayMonthYear(date) {
     const data = new Date(date)
     const dia = String(data.getDate()).padStart(2, '0')
-    // const dia = String((data.getDate()) + 1).padStart(2, '0')
     const mes = String(data.getMonth() + 1).padStart(2, '0')
     const ano = data.getFullYear()
 
@@ -202,6 +180,7 @@ function deleteExpense(id) {
     currentId = maxId + 1
 
     updateExpenseTable()
+    updateMonthTable()
     clearFormFields()
 
     console.log(
@@ -289,13 +268,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const mes = String(dataAtual.getMonth() + 1).padStart(2, '0')
     const dia = String(dataAtual.getDate()).padStart(2, '0')
 
-    // if (
-    //     isNaN(dataAtual.getMonth()) == true ||
-    //     isNaN(dataAtual.getDate() == true || isNaN(dataAtual.getYear() == true))
-    // ) {
-    //     dataFormatada = ''
-    // }
-
     const dataFormatada = `${ano}-${mes}-${dia}`
 
     document.getElementById('expense-date').max = dataFormatada
@@ -304,39 +276,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function displayExpensesForSelectedMonth() {
     const selectedMonth = new Date(document.getElementById('view-month').value)
-    // updateMonthTable()
 
     if (isNaN(selectedMonth)) {
         updateMonthTable()
     } else {
         const tableBody = document.getElementById('monthly-expense-table-body')
-
         tableBody.innerHTML = ''
 
+        let totalExpenses = 0
+
         for (const expense of allExpenses) {
-            // if (expense.date.startsWith(selectedMonth)) {
-            const date = formatDateMonthYear(expense.date)
-            // if (expense.date.startWith(selectedMonth)) {
+            const expenseDate = new Date(expense.date)
+            const expenseMonth = expenseDate.getMonth() - 1
+            const expenseYear = expenseDate.getFullYear()
 
             if (
-                expense.date.getMonth() == selectedMonth.getMonth() + 1 &&
-                expense.date.getFullYear() == selectedMonth.getFullYear()
+                expenseMonth === selectedMonth.getMonth() &&
+                expenseYear === selectedMonth.getFullYear()
             ) {
                 const row = document.createElement('tr')
                 row.innerHTML = `
-            <td>${date}</td>
+            <td id="td0">${formatDateMonthYear(expense.date)}</td>
             <td>${expense.id}</td>
             <td>${expense.type}</td>
-            <td>${expense.value.toFixed(2)}</td>
+            <td id="td6">${expense.value.toFixed(2)}</td>
         `
-
                 tableBody.appendChild(row)
-                // } else {
-                //     updateMonthTable()
+                totalExpenses += expense.value
             }
         }
+
+        const footerRow = document.createElement('tr')
+        footerRow.setAttribute('id', 'tr-footer')
+        const footerCell = document.createElement('td')
+        footerCell.setAttribute('id', 'td-footer')
+        footerCell.setAttribute('colspan', '4')
+        footerCell.textContent =
+            'Total de Despesas: R$' + totalExpenses.toFixed(2)
+        footerRow.appendChild(footerCell)
+        tableBody.appendChild(footerRow)
     }
-    // updateMonthTable()
 }
 
 document

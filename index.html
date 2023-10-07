@@ -104,24 +104,28 @@
         <!-- Tabelas por mês -->
         <div id="monthly-tables">
             <h2>Despesas por mês</h2>
-            <label for="view-month">Selecione o mês:</label>
+            <label id="label-view-month" for="view-month"></label>
             <input
-                type="month"
+                onfocus="this.type='month'"
+                onblur="this.type='text'"
                 id="view-month"
+                placeholder="Selecione o mês/ano"
                 onchange="displayExpensesForSelectedMonth()"
             />
-            <table id="monthly-expense-table">
-                <thead>
-                    <tr>
-                        <th>Mês</th>
-                        <th>Id</th>
-                        <th>Tipo de despesa</th>
-                        <th>Valor(R$)</th>
-                    </tr>
-                </thead>
-                <tbody id="monthly-expense-table-body"></tbody>
-            </table>
-            <!-- A tabela de despesas por mês será criada via JavaScript -->
+            <div id="div-monthly-tables">
+                <table id="monthly-expense-table">
+                    <thead>
+                        <tr>
+                            <th>Mês</th>
+                            <th>Id</th>
+                            <th>Tipo de despesa</th>
+                            <th>Valor(R$)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="monthly-expense-table-body"></tbody>
+                </table>
+                <!-- A tabela de despesas por mês será criada via JavaScript -->
+            </div>
         </div>
         <script src="./script.js"></script>
     </body>
