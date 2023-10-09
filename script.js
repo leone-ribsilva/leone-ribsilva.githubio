@@ -1,16 +1,24 @@
+// Constantes
+const EXPENSE_TYPE = 'expense-type'
+const EXPENSE_DATE = 'expense-date'
+const PAYMENT_METHOD = 'payment-method'
+const EXPENSE_VALUE = 'expense-value'
+const CLOSING_DATE = 'closing-date'
+const INSTALLMENTS = 'installments'
+
 // Variáveis globais para armazenar despesas e IDs
 let expenses = [] // Para exibição na tabela de despesas cadastradas
 let allExpenses = [] // Para cálculos
 let currentId = 1
 
 // Função para adicionar uma despesa à lista
-function addExpense() {
-    const type = document.getElementById('expense-type').value
-    const date = new Date(document.getElementById('expense-date').value)
-    const paymentMethod = document.getElementById('payment-method').value
-    const value = parseFloat(document.getElementById('expense-value').value)
-    const closingDate = document.getElementById('closing-date').value
-    const installments = document.getElementById('installments').value
+function addExpenseToList() {
+    const type = document.getElementById(EXPENSE_TYPE).value
+    const date = new Date(document.getElementById(EXPENSE_DATE).value)
+    const paymentMethod = document.getElementById(PAYMENT_METHOD).value
+    const value = parseFloat(document.getElementById(EXPENSE_VALUE).value)
+    const closingDate = document.getElementById(CLOSING_DATE).value
+    const installments = document.getElementById(INSTALLMENTS).value
 
     let expense = {
         id: currentId,
@@ -22,48 +30,65 @@ function addExpense() {
         value: value
     }
 
-    let originalId = currentId // Salva o ID original
-
     if (paymentMethod === 'C.Crédito') {
-        const installments = parseInt(
-            document.getElementById('installments').value
-        )
-
-        for (let i = 0; i < installments; i++) {
-            let installmentExpense = { ...expense }
-            installmentExpense.value = value / installments
-            let installmentDate = new Date(date)
-            installmentDate.setMonth(installmentDate.getMonth() + i)
-            installmentExpense.date = installmentDate
-
-            allExpenses.push(installmentExpense) // Adiciona a parcela à lista de todas as despesas
-        }
-
-        let installmentExpenseDate = { ...expense }
-        let expensesClosingDate = new Date(closingDate)
-        expensesClosingDate.setDate(expensesClosingDate.getDate() + 1)
-        installmentExpenseDate.closingDate = expensesClosingDate
-
-        let expenseDate = new Date(date)
-        expenseDate.setDate(expenseDate.getDate() + 1)
-        installmentExpenseDate.date = expenseDate
-
-        expenses.push(installmentExpenseDate)
+        handleCreditCardPayment(expense, value, date, installments, closingDate)
     } else {
-        let oneExpenses = { ...expense }
-
-        let oneExpenseDate = date
-        oneExpenseDate.setDate(oneExpenseDate.getDate() + 1)
-        oneExpenses.date = oneExpenseDate
-
-        expenses.push(expense) // Adiciona a despesa à lista de despesas para exibição na tabela
-        allExpenses.push(expense)
+        handleOtherPayment(expense, date)
     }
 
-    updateExpenseTable()
-    updateMonthTable()
+    updateTables()
     clearFormFields()
     currentId++
+}
+
+function handleCreditCardPayment(
+    expense,
+    value,
+    date,
+    installments,
+    closingDate
+) {
+    addInstallmentsToAllExpenses(expense, value, date, installments)
+
+    let installmentExpenseDate = { ...expense }
+    let expensesClosingDate = new Date(closingDate)
+    expensesClosingDate.setDate(expensesClosingDate.getDate() + 1)
+    installmentExpenseDate.closingDate = expensesClosingDate
+
+    let expenseDate = new Date(date)
+    expenseDate.setDate(expenseDate.getDate() + 1)
+    installmentExpenseDate.date = expenseDate
+
+    expenses.push(installmentExpenseDate) // Adiciona a despesa à lista de despesas para exibição na tabela
+}
+
+function handleOtherPayment(expense, date) {
+    let oneExpenses = { ...expense }
+
+    let oneExpenseDate = date
+    oneExpenseDate.setDate(oneExpenseDate.getDate() + 1)
+    oneExpenses.date = oneExpenseDate
+
+    expenses.push(expense) // Adiciona a despesa à lista de despesas para exibição na tabela
+    allExpenses.push(expense) // Adiciona a despesa à lista de todas as despesas
+}
+
+function addInstallmentsToAllExpenses(expense, value, date, installments) {
+    for (let i = 0; i < installments; i++) {
+        let installmentExpense = { ...expense }
+        installmentExpense.value = value / installments
+        let installmentDate = new Date(date)
+        installmentDate.setMonth(installmentDate.getMonth() + i)
+        installmentExpense.date = installmentDate
+
+        allExpenses.push(installmentExpense) // Adiciona a parcela à lista de todas as despesas
+    }
+}
+
+// Função para atualizar as tabelas de despesas
+function updateTables() {
+    updateExpenseTable()
+    updateMonthTable()
 }
 
 // Função para atualizar a tabela de despesas
@@ -113,17 +138,18 @@ function updateMonthTable() {
             var dataCompra = formatDateMonthYear(expense.date)
             const row = document.createElement('tr')
             row.innerHTML = `
-                <td id="td0">${dataCompra}</td>
-                <td>${expense.id}</td>
-                <td>${expense.type}</td>
-                <td id="td6">${expense.value.toFixed(2)}</td>
-            `
+               <td id="td0">${dataCompra}</td>
+               <td>${expense.id}</td>
+               <td>${expense.type}</td>
+               <td id="td6">${expense.value.toFixed(2)}</td>
+           `
 
             monthlyTableBody.appendChild(row)
         }
     }
 }
 
+// Função para formatar data para string no formato dia-mês-ano
 function formatDateDayMonthYear(date) {
     const data = new Date(date)
     const dia = String(data.getDate()).padStart(2, '0')
@@ -137,11 +163,11 @@ function formatDateDayMonthYear(date) {
     }
 }
 
+// Função para formatar data para string no formato mês-ano
 function formatDateMonthYear(date) {
     const day = String(date.getDate()).padStart(2, '0')
     const month = String(date.getMonth() + 1).padStart(2, '0')
     const year = date.getFullYear()
-
     return `${month}-${year}`
 }
 
@@ -190,6 +216,20 @@ function deleteExpense(id) {
     )
 }
 
+document.getElementById(PAYMENT_METHOD).addEventListener('change', function () {
+    const creditCardFields = document.getElementById('credit-card-fields')
+    const selectedPaymentMethod = this.value
+    const closingDateInput = document.getElementById('closing-date')
+
+    if (selectedPaymentMethod === 'C.Crédito') {
+        creditCardFields.classList.remove('hidden')
+        closingDateInput.setAttribute('required', '')
+    } else {
+        creditCardFields.classList.add('hidden')
+        closingDateInput.removeAttribute('required')
+    }
+})
+
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('fa-trash')) {
         const id = parseInt(event.target.dataset.id)
@@ -208,58 +248,10 @@ document
     .getElementById('expense-form')
     .addEventListener('submit', function (e) {
         e.preventDefault()
-        addExpense()
+        addExpenseToList()
     })
 
-updateExpenseTable()
-
-function formatDateToString(date) {
-    const day = String(date.getDate()).padStart(2, '0')
-    const month = String(date.getMonth() + 1).padStart(2, '0')
-    const year = date.getFullYear()
-
-    return `${year}-${month}-${day}`
-}
-
-document.addEventListener('click', function (event) {
-    if (event.target.classList.contains('delete-button')) {
-        const id = parseInt(event.target.dataset.id)
-
-        const confirmDelete = confirm(
-            'Tem certeza que deseja excluir esta despesa?'
-        )
-
-        if (confirmDelete) {
-            deleteExpense(id)
-        }
-    }
-})
-
-var input = document.querySelector('#expense-value')
-
-input.addEventListener('input', function (e) {
-    var num = this.value.replace(/[^0-9]/g, '')
-
-    num = num.replace(/(\d)(\d{2})$/, '$1,$2')
-
-    this.value = num.replace(',', '.')
-})
-
-const closingDateInput = document.getElementById('closing-date')
-document
-    .getElementById('payment-method')
-    .addEventListener('change', function () {
-        const creditCardFields = document.getElementById('credit-card-fields')
-        const selectedPaymentMethod = this.value
-
-        if (selectedPaymentMethod === 'C.Crédito') {
-            creditCardFields.classList.remove('hidden')
-            closingDateInput.setAttribute('required', '')
-        } else {
-            creditCardFields.classList.add('hidden')
-            closingDateInput.removeAttribute('required')
-        }
-    })
+updateTables()
 
 document.addEventListener('DOMContentLoaded', function () {
     const dataAtual = new Date()
@@ -272,6 +264,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('expense-date').max = dataFormatada
     document.getElementById('closing-date').min = dataFormatada
+})
+
+document.getElementById(EXPENSE_VALUE).addEventListener('input', function () {
+    var num = this.value.replace(/[^0-9]/g, '')
+
+    num = num.replace(/(\d)(\d{2})$/, '$1,$2')
+
+    this.value = num.replace(',', '.')
 })
 
 function displayExpensesForSelectedMonth() {
